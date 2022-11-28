@@ -1,0 +1,9 @@
+/config/__pycache__
+/datasets/__pycache__
+/loss/__pycache__
+/model/__pycache__
+/processor/__pycache__
+/solver/__pycache__
+/utils/__pycache__
+/model/backbones/__pycache__
+/model/clip/__pycache__
