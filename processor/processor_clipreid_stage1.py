@@ -25,9 +25,9 @@ def do_train_stage1(cfg,
     _LOCAL_PROCESS_GROUP = None
     if device:
         model.to(local_rank)
-        if torch.cuda.device_count() > 1 and cfg.MODEL.DIST_TRAIN:
+        if torch.cuda.device_count() > 1:
             print('Using {} GPUs for training'.format(torch.cuda.device_count()))
-            model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank], find_unused_parameters=True)
+            model = nn.DataParallel(model)  
 
     loss_meter = AverageMeter()
     scaler = amp.GradScaler()

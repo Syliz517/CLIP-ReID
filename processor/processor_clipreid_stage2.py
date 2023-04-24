@@ -33,9 +33,12 @@ def do_train_stage2(cfg,
     _LOCAL_PROCESS_GROUP = None
     if device:
         model.to(local_rank)
-        if torch.cuda.device_count() > 1 and cfg.MODEL.DIST_TRAIN:
+        if torch.cuda.device_count() > 1:
             print('Using {} GPUs for training'.format(torch.cuda.device_count()))
-            model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank], find_unused_parameters=True)
+            model = nn.DataParallel(model)  
+            num_classes = model.module.num_classes
+        else:
+            num_classes = model.num_classes
 
     loss_meter = AverageMeter()
     acc_meter = AverageMeter()
@@ -51,7 +54,6 @@ def do_train_stage2(cfg,
 
     # train
     batch = cfg.SOLVER.STAGE2.IMS_PER_BATCH
-    num_classes = model.num_classes
     i_ter = num_classes // batch
     left = num_classes-batch* (num_classes//batch)
     if left != 0 :
