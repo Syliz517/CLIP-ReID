@@ -63,7 +63,7 @@ CUDA_VISIBLE_DEVICES=0 python train_clipreid.py --config_file configs/person/vit
 
 ### Evaluation
 
-For example, if you want to text  ViT-based CLIP-ReID for MSMT17
+For example, if you want to test ViT-based CLIP-ReID for MSMT17
 
 ```
 CUDA_VISIBLE_DEVICES=0 python test_clipreid.py --config_file configs/person/vit_clipreid.yml TEST.WEIGHT 'your_trained_checkpoints_path/ViT-B-16_60.pth'
